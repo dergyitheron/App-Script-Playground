@@ -25,14 +25,17 @@ function main() {
     //even in case of no attachments, archive those items
     Logger.log(inboxContent.length + " new items in the inbox.\nFetching...");
     
-    getAttachments(inboxContent);
+    var folderToSaveId = "1v2kqn2uNPk5D8aug__qSHFv9EDbHO49k";
+    // this is Id of folder to save attachments to
+    
+    getAttachments(inboxContent, folderToSaveId);
     moveToArchive(inboxContent);
   }
 }
 
 
 // Functions //
-function getAttachments(payload) {  
+function getAttachments(payload, folderId) {  
   // checks all threads passed as payload for attachments
   // saves all attachments in file with date and subject of thread
   
@@ -60,7 +63,7 @@ function getAttachments(payload) {
         attachmentCount += attachments.length;
         // increase count of attachments for logging purposes
         
-        var parentFolder = DriveApp.getFolderById("1v2kqn2uNPk5D8aug__qSHFv9EDbHO49k");
+        var parentFolder = DriveApp.getFolderById(folderId);
         var newFolder = parentFolder.createFolder(messageDate + " " + thread.getFirstMessageSubject());
         //create folder with the messageDate and subject of first message
         
